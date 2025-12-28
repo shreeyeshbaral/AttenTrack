@@ -1,0 +1,61 @@
+.header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.class-card {
+  background: white;
+  padding: 16px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.actions button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  margin-left: 6px;
+  font-size: 16px;
+}
+
+.present {
+  background: #eafaf1;
+  color: var(--green);
+}
+
+.absent {
+  background: #fdecea;
+  color: var(--red);
+}
+
+.cancel {
+  background: #f0f0f0;
+  color: var(--gray);
+}
+.actions button {
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.actions button:active {
+  transform: scale(0.92);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}

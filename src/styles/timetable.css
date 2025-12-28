@@ -1,0 +1,30 @@
+.add-card {
+  background: white;
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  margin-top: 20px;
+}
+
+.add-card select,
+.add-card input,
+.add-card button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+}
+
+.add-card button {
+  background: #007AFF;
+  color: white;
+  border: none;
+}
+
+.class-card {
+  background: white;
+  padding: 14px;
+  border-radius: 14px;
+  margin-bottom: 10px;
+}

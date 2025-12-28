@@ -1,0 +1,31 @@
+.progress-ring {
+  transform: rotate(-90deg);
+}
+
+.ring-bg {
+  fill: none;
+  stroke: #eee;
+  stroke-width: 10;
+}
+
+.ring-progress {
+  fill: none;
+  stroke-width: 10;
+  stroke-dasharray: 377;
+  transition: stroke-dashoffset 0.8s ease;
+}
+
+.ring-progress.green {
+  stroke: var(--green);
+}
+
+.ring-progress.red {
+  stroke: var(--red);
+}
+
+.percent-text {
+  font-size: 22px;
+  font-weight: bold;
+  fill: black;
+  transform: rotate(90deg);
+}

@@ -1,0 +1,86 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* LOGIN */
+.login-container {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 320px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 10px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
+
+/* DASHBOARD */
+.dashboard {
+  width: 90%;
+  max-width: 600px;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.card {
+  margin: 15px 0;
+}
+
+.subject {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0;
+}
+
+.present {
+  background: #4caf50;
+  color: white;
+  border: none;
+  margin-right: 5px;
+  padding: 6px 10px;
+}
+
+.absent {
+  background: #f44336;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+}
+
+.percentage {
+  margin-top: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.good {
+  color: green;
+}
+
+.bad {
+  color: red;
+}

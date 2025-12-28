@@ -1,0 +1,12 @@
+:root {
+  --primary-blue: #007AFF;
+  --green-zone: #2ECC71;
+  --red-zone: #E74C3C;
+  --neutral-gray: #95A5A6;
+  --bg-offwhite: #F8F9FA;
+
+  --radius-lg: 16px;
+  --radius-md: 12px;
+
+  --shadow-soft: 0 4px 14px rgba(0, 0, 0, 0.06);
+}

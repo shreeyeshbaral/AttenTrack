@@ -1,0 +1,128 @@
+/* 1. IMPORT THE PREMIUM FONT */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --primary: #6366f1;       /* Indigo */
+  --primary-soft: #e0e7ff;  /* Light Indigo */
+  --success: #10b981;       /* Emerald */
+  --danger: #ef4444;        /* Rose */
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif; /* <--- THIS APPLIES THE FONT */
+  color: var(--text-main);
+  
+  /* PREMIUM MESH BACKGROUND */
+  background-color: #f8fafc;
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(253,16%,90%,1) 0, transparent 50%), 
+    radial-gradient(at 50% 0%, hsla(225,39%,90%,1) 0, transparent 50%), 
+    radial-gradient(at 100% 0%, hsla(339,49%,90%,1) 0, transparent 50%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-container {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 20px 20px 100px 20px;
+  position: relative;
+}
+
+/* GLASS CARD STYLES */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+  border-radius: 24px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.glass-card-hover:active {
+  transform: scale(0.98);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* INPUTS & BUTTONS */
+input, select {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(4px);
+  border-radius: 12px;
+  padding: 14px;
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-main);
+  outline: none;
+  font-size: 14px;
+}
+
+input:focus, select:focus {
+  background: white;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+  border-color: var(--primary);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 15px;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+  transition: transform 0.1s;
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+}
+
+/* CALENDAR STYLES */
+.react-calendar {
+  width: 100% !important;
+  max-width: 380px !important;
+  margin: 0 auto !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  border-radius: 24px !important;
+  box-shadow: 0 10px 40px -10px rgba(0,0,0,0.1) !important;
+  font-family: 'Poppins', sans-serif !important;
+  padding: 20px !important;
+  border-bottom: none !important;
+}
+
+.react-calendar__navigation button {
+  color: #1e293b !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+}
+
+.react-calendar__tile {
+  padding: 12px 0 !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  border-radius: 14px !important;
+}
+
+.react-calendar__tile--now {
+  background: var(--primary-soft) !important;
+  color: var(--primary) !important;
+  font-weight: 700 !important;
+}
+
+.react-calendar__tile--active {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%) !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4) !important;
+}
