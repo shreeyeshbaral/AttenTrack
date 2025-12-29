@@ -37,6 +37,30 @@ const CalendarPage = () => {
     setDate(newDate);
   };
 
+  // Helper function to determine the dot color for each date tile
+  const getTileStatus = (calDate) => {
+    const dateKey = format(calDate, 'yyyy-MM-dd');
+    const dayName = format(calDate, 'EEEE');
+    const scheduledClasses = timetable[dayName] || [];
+
+    // Gray dot if no classes are scheduled for this day
+    if (scheduledClasses.length === 0) return 'gray';
+
+    // Get all history entries for this specific date
+    const dayHistoryKeys = Object.keys(attendanceHistory).filter(key => key.startsWith(dateKey));
+    
+    // If no classes have been marked yet, don't show a dot
+    const markedEntries = dayHistoryKeys.map(key => attendanceHistory[key]).filter(status => status !== 'none');
+    if (markedEntries.length === 0) return null;
+
+    const presentCount = markedEntries.filter(s => s === 'present').length;
+    const absentCount = markedEntries.filter(s => s === 'absent').length;
+
+    if (presentCount === scheduledClasses.length) return 'green'; // All present
+    if (absentCount === scheduledClasses.length) return 'red';   // All absent
+    return 'yellow'; // Mixed attendance
+  };
+
   const handleMark = (id, status, type, instanceId) => {
     const dateKey = format(date, 'yyyy-MM-dd');
     setAnimatingId(`${instanceId}-${type}`);
@@ -99,7 +123,6 @@ const CalendarPage = () => {
           .react-calendar__month-view__days__day { color: #cbd5e1 !important; }
           .react-calendar__month-view__days__day--weekend { color: #ef4444 !important; }
           
-          /* FIX: Visibility for current date (now) in Dark Mode */
           .react-calendar__tile--now { 
             background: rgba(99, 102, 241, 0.25) !important; 
             color: #ffffff !important; 
@@ -114,14 +137,37 @@ const CalendarPage = () => {
 
       <style>{`
           .react-calendar { border: none; width: 100%; font-family: inherit; }
-          .react-calendar__tile { padding: 15px 0; font-weight: 600; font-size: 14px; }
+          .react-calendar__tile { padding: 15px 0; font-weight: 600; font-size: 14px; position: relative; }
           .react-calendar__navigation { margin-bottom: 20px; }
+          .dot-indicator {
+            height: 6px;
+            width: 6px;
+            border-radius: 50%;
+            display: block;
+            margin: 2px auto 0;
+          }
       `}</style>
 
       <h2 style={{ marginBottom: '20px', fontWeight: '800', color: colors.text }}>Calendar</h2>
       
       <div className="glass-card" style={{ marginBottom: '30px', padding: '20px', background: colors.cardBg, border: colors.cardBorder }}>
-        <ReactCalendar onChange={onDateChange} value={date} />
+        <ReactCalendar 
+          onChange={onDateChange} 
+          value={date} 
+          tileContent={({ date, view }) => {
+            if (view === 'month') {
+              const status = getTileStatus(date);
+              let dotColor = 'transparent';
+              
+              if (status === 'green') dotColor = '#10b981';
+              if (status === 'red') dotColor = '#ef4444';
+              if (status === 'yellow') dotColor = '#f59e0b';
+              if (status === 'gray') dotColor = darkMode ? '#475569' : '#cbd5e1';
+
+              return <span className="dot-indicator" style={{ backgroundColor: dotColor }}></span>;
+            }
+          }}
+        />
       </div>
 
       <h3 style={{ marginBottom: '15px', color: colors.sectionTitle, fontSize: '12px', textTransform: 'uppercase', letterSpacing: '1.5px', fontWeight: '700' }}>

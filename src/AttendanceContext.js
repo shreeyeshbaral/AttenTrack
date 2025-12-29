@@ -50,15 +50,9 @@ export const AttendanceProvider = ({ children }) => {
     setTimetable(newTimetable);
   };
 
-  // --- UPDATED LOGOUT FUNCTION ---
   const logout = () => {
-    // 1. Remove ONLY the login flag so data stays in localStorage
     localStorage.removeItem('isLoggedIn');
-    
-    // 2. Update state to reflect logged out status
     setUser(prev => ({ ...prev, isLoggedIn: false }));
-    
-    // 3. Redirect to login page
     window.location.href = "/"; 
   };
 
@@ -78,13 +72,16 @@ export const AttendanceProvider = ({ children }) => {
     const historyKey = `${dateKey}-${instanceId}`;
     const previousStatus = attendanceHistory[historyKey] || 'none';
 
-    if (previousStatus === status) return;
+    // NEW VERSION: Toggle logic
+    // If user clicks the same button, we "revoke" it by setting it to 'none'
+    const finalStatus = previousStatus === status ? 'none' : status;
 
     setSubjects(prevSubjects => prevSubjects.map(sub => {
       if (sub.id === subjectId) {
         let newAttended = sub.attended;
         let newTotal = sub.total;
 
+        // 1. First, REVERSE the previous math
         if (previousStatus === 'present') {
           newAttended = Math.max(0, newAttended - 1);
           newTotal = Math.max(0, newTotal - 1);
@@ -92,10 +89,11 @@ export const AttendanceProvider = ({ children }) => {
           newTotal = Math.max(0, newTotal - 1);
         }
 
-        if (status === 'present') {
+        // 2. Then, APPLY the new math (only if not 'none')
+        if (finalStatus === 'present') {
           newAttended += 1;
           newTotal += 1;
-        } else if (status === 'absent') {
+        } else if (finalStatus === 'absent') {
           newTotal += 1;
         }
 
@@ -104,7 +102,7 @@ export const AttendanceProvider = ({ children }) => {
       return sub;
     }));
 
-    setAttendanceHistory(prev => ({ ...prev, [historyKey]: status }));
+    setAttendanceHistory(prev => ({ ...prev, [historyKey]: finalStatus }));
   };
 
   // Save changes automatically
