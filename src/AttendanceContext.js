@@ -23,7 +23,6 @@ export const AttendanceProvider = ({ children }) => {
   const [timetable, setTimetable] = useState(getInitialData('timetable', {
     Monday: [], Tuesday: [], Wednesday: [], Thursday: [], Friday: [], Saturday: [], Sunday: []
   }));
-  
   const [attendanceHistory, setAttendanceHistory] = useState(getInitialData('attendanceHistory', {}));
   const [darkMode, setDarkMode] = useState(getInitialData('darkMode', false));
 
@@ -71,9 +70,6 @@ export const AttendanceProvider = ({ children }) => {
   const markAttendance = (subjectId, status, dateKey, instanceId) => {
     const historyKey = `${dateKey}-${instanceId}`;
     const previousStatus = attendanceHistory[historyKey] || 'none';
-
-    // NEW VERSION: Toggle logic
-    // If user clicks the same button, we "revoke" it by setting it to 'none'
     const finalStatus = previousStatus === status ? 'none' : status;
 
     setSubjects(prevSubjects => prevSubjects.map(sub => {
@@ -81,7 +77,6 @@ export const AttendanceProvider = ({ children }) => {
         let newAttended = sub.attended;
         let newTotal = sub.total;
 
-        // 1. First, REVERSE the previous math
         if (previousStatus === 'present') {
           newAttended = Math.max(0, newAttended - 1);
           newTotal = Math.max(0, newTotal - 1);
@@ -89,7 +84,6 @@ export const AttendanceProvider = ({ children }) => {
           newTotal = Math.max(0, newTotal - 1);
         }
 
-        // 2. Then, APPLY the new math (only if not 'none')
         if (finalStatus === 'present') {
           newAttended += 1;
           newTotal += 1;
@@ -105,15 +99,34 @@ export const AttendanceProvider = ({ children }) => {
     setAttendanceHistory(prev => ({ ...prev, [historyKey]: finalStatus }));
   };
 
-  // Save changes automatically
+  // --- OPTIMIZED SAVE LOGIC ---
+  // We split the save logic into separate effects so we don't save everything every time
+  
   useEffect(() => {
     localStorage.setItem('subjects', JSON.stringify(subjects));
-    localStorage.setItem('cap', JSON.stringify(attendanceCap));
-    localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('timetable', JSON.stringify(timetable));
-    localStorage.setItem('darkMode', JSON.stringify(darkMode));
-    localStorage.setItem('attendanceHistory', JSON.stringify(attendanceHistory));
+  }, [subjects]);
 
+  useEffect(() => {
+    localStorage.setItem('attendanceHistory', JSON.stringify(attendanceHistory));
+  }, [attendanceHistory]);
+
+  useEffect(() => {
+    localStorage.setItem('timetable', JSON.stringify(timetable));
+  }, [timetable]);
+
+  useEffect(() => {
+    localStorage.setItem('user', JSON.stringify(user));
+    if(user.isLoggedIn) {
+        localStorage.setItem('isLoggedIn', 'true');
+    }
+  }, [user]);
+
+  useEffect(() => {
+    localStorage.setItem('cap', JSON.stringify(attendanceCap));
+  }, [attendanceCap]);
+
+  useEffect(() => {
+    localStorage.setItem('darkMode', JSON.stringify(darkMode));
     if (darkMode) {
         document.body.style.backgroundColor = '#0f172a';
         document.body.style.color = '#f1f5f9';
@@ -121,11 +134,7 @@ export const AttendanceProvider = ({ children }) => {
         document.body.style.backgroundColor = '#f8fafc';
         document.body.style.color = '#1e293b';
     }
-
-    if(user.isLoggedIn) {
-        localStorage.setItem('isLoggedIn', 'true');
-    }
-  }, [subjects, attendanceCap, user, timetable, darkMode, attendanceHistory]);
+  }, [darkMode]);
 
   return (
     <AttendanceContext.Provider value={{ 
