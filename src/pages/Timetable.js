@@ -5,19 +5,14 @@ import { MdAdd, MdClose } from 'react-icons/md';
 import toast from 'react-hot-toast';
 
 const Timetable = () => {
-  
   const { timetable, subjects, addToTimetable, removeFromTimetable, darkMode } = useContext(AttendanceContext);
-  
   
   const [day, setDay] = useState('Monday');
   const [selectedSub, setSelectedSub] = useState('');
-
-  
   const [activeSubject, setActiveSubject] = useState(null);
 
   const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-  
   const colors = {
     text: darkMode ? '#f1f5f9' : '#1e293b',
     subText: darkMode ? '#94a3b8' : '#64748b',
@@ -48,11 +43,9 @@ const Timetable = () => {
 
   const handleChipClick = (dayName, index) => {
     if (activeSubject && activeSubject.day === dayName && activeSubject.index === index) {
-        
-        setActiveSubject(null);
+      setActiveSubject(null);
     } else {
-        
-        setActiveSubject({ day: dayName, index: index });
+      setActiveSubject({ day: dayName, index: index });
     }
   };
 
@@ -65,7 +58,6 @@ const Timetable = () => {
         <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#6366f1', marginBottom: '15px' }}>Add Class to Schedule</h3>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
           
-          {/* Day Select */}
           <select 
             value={day} 
             onChange={(e) => setDay(e.target.value)}
@@ -74,7 +66,6 @@ const Timetable = () => {
             {daysOfWeek.map(d => <option key={d} value={d}>{d}</option>)}
           </select>
 
-          {/* Subject Select */}
           <select 
             value={selectedSub} 
             onChange={(e) => setSelectedSub(e.target.value)}
@@ -91,21 +82,25 @@ const Timetable = () => {
       </div>
 
       {/* --- 2. DISPLAY SECTION (Interactive Chips) --- */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', paddingBottom: '100px' }}>
         {daysOfWeek.map(dayName => (
           <div key={dayName} className="glass-card" style={{ padding: '20px', borderRadius: '20px', background: colors.cardBg, border: colors.cardBorder }}>
             <h3 style={{ fontSize: '16px', marginBottom: '12px', fontWeight: '700', color: colors.text }}>{dayName}</h3>
             
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
               {timetable[dayName] && timetable[dayName].length > 0 ? (
-                timetable[dayName].map((subName, index) => {
-                  // Check if this specific chip is the active one
+                timetable[dayName].map((subId, index) => {
+                  
+                  // --- FIX: LOOKUP SUBJECT NAME BY ID ---
+                  const subjectObj = subjects.find(s => s.id === subId);
+                  const displayName = subjectObj ? subjectObj.name : "Unknown";
+
                   const isActive = activeSubject && activeSubject.day === dayName && activeSubject.index === index;
 
                   return (
                     <div 
                         key={index} 
-                        onClick={() => handleChipClick(dayName, index)} // Click to toggle X
+                        onClick={() => handleChipClick(dayName, index)} 
                         style={{ 
                             background: isActive ? colors.activeChipBg : colors.chipBg, 
                             color: isActive ? colors.activeChipText : colors.chipText, 
@@ -122,8 +117,9 @@ const Timetable = () => {
                             border: isActive ? 'none' : `1px solid ${darkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}`
                         }}
                     >
-                      {subName}
-                      {/* Only show 'X' if active */}
+                      {/* --- SHOW THE NAME, NOT THE ID --- */}
+                      {displayName}
+
                       {isActive && (
                         <MdClose 
                             size={18} 

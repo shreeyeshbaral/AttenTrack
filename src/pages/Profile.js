@@ -6,7 +6,8 @@ import { MdSettings, MdDelete, MdRefresh, MdLogout, MdSchool, MdClass, MdEdit, M
 
 const Profile = () => {
   
-  const { user, setUser, attendanceCap, setAttendanceCap, setSubjects, setTimetable, darkMode, setDarkMode } = useContext(AttendanceContext);
+  // Destructure logout from AttendanceContext
+  const { user, setUser, attendanceCap, setAttendanceCap, setSubjects, setTimetable, darkMode, setDarkMode, logout } = useContext(AttendanceContext);
 
   
   const [isEditing, setIsEditing] = useState(false);
@@ -50,9 +51,10 @@ const Profile = () => {
     }
   };
 
+  // UPDATED: Now calls the actual logout function from Context
   const handleLogout = () => {
-    setUser({ ...user, isLoggedIn: false });
     toast.success("Logged out successfully");
+    logout(); 
   };
 
   

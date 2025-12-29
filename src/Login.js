@@ -7,15 +7,10 @@ const Login = () => {
   const { setUser } = useContext(AttendanceContext);
   const navigate = useNavigate();
 
-  // State for all the inputs
   const [name, setName] = useState('');
-  const [type, setType] = useState('college'); // 'college' or 'school'
-  
-  // College specific
-  const [course, setCourse] = useState(''); // e.g., B.Tech
+  const [type, setType] = useState('college'); 
+  const [course, setCourse] = useState(''); 
   const [year, setYear] = useState('1st Year');
-
-  // School specific
   const [standard, setStandard] = useState('10th Grade');
 
   const handleLogin = (e) => {
@@ -25,54 +20,49 @@ const Login = () => {
       return;
     }
 
-    // Prepare the final profile data based on selection
     const finalBranch = type === 'college' ? course : `${standard}`;
     const finalYear = type === 'college' ? year : 'School Student';
 
-    // Save to Context
-    setUser({ 
+    // 1. Create the user object
+    const userData = { 
       name: name, 
       branch: finalBranch || (type === 'college' ? 'College Student' : 'Student'), 
       year: finalYear, 
       isLoggedIn: true 
-    });
+    };
 
+    // 2. SAVE TO LOCAL STORAGE (Crucial for fixing the loop)
+    // Ensure these keys match exactly what your App.js and Context.js check for
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('user', JSON.stringify(userData)); 
+
+    // 3. Save to Context
+    setUser(userData);
+
+    // 4. Navigate and Toast
     navigate('/dashboard');
     toast.success(`Welcome, ${name}!`);
   };
 
   return (
     <div className="page-container" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
-      
-      {/* --- GLASS CARD FORM --- */}
       <div className="glass-card" style={{ padding: '40px', width: '100%', maxWidth: '340px', textAlign: 'center' }}>
         
-        {/* Aesthetic Logo/Icon with "A" */}
         <div style={{ 
-          width: '64px', 
-          height: '64px', 
+          width: '64px', height: '64px', 
           background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', 
-          borderRadius: '20px', 
-          margin: '0 auto 20px auto', 
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'center', 
-          fontSize: '32px', 
-          fontWeight: '800', 
-          color: 'white',
+          borderRadius: '20px', margin: '0 auto 20px auto', 
+          display: 'flex', alignItems: 'center', justifyContent: 'center', 
+          fontSize: '32px', fontWeight: '800', color: 'white',
           boxShadow: '0 10px 25px rgba(99, 102, 241, 0.4)',
           border: '1px solid rgba(255,255,255,0.2)'
         }}>
           A
         </div>
 
-        {/* Premium Title Font */}
         <h1 style={{ 
-          fontSize: '28px', 
-          fontWeight: '800', 
-          color: '#1e293b', 
-          marginBottom: '5px', 
-          fontFamily: "'Poppins', sans-serif", // Ensuring the premium font matches
+          fontSize: '28px', fontWeight: '800', color: '#1e293b', 
+          marginBottom: '5px', fontFamily: "'Poppins', sans-serif", 
           letterSpacing: '-0.5px'
         }}>
           AttenTrack
@@ -84,7 +74,6 @@ const Login = () => {
 
         <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
           
-          {/* 1. Name Input */}
           <div style={{ textAlign: 'left' }}>
             <label style={{ fontSize: '12px', fontWeight: '700', color: '#64748b', marginLeft: '5px', marginBottom: '5px', display: 'block', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Your Name</label>
             <input 
@@ -96,7 +85,6 @@ const Login = () => {
             />
           </div>
 
-          {/* 2. Toggle Switch (School vs College) */}
           <div style={{ background: 'rgba(255,255,255,0.5)', padding: '5px', borderRadius: '14px', display: 'flex', border: '1px solid rgba(255,255,255,0.6)', marginTop: '5px' }}>
             <button 
               type="button"
@@ -114,9 +102,8 @@ const Login = () => {
             </button>
           </div>
 
-          {/* 3. Conditional Fields */}
           {type === 'college' ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', animation: 'fadeIn 0.3s' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
               <div style={{ textAlign: 'left' }}>
                 <label style={{ fontSize: '12px', fontWeight: '700', color: '#64748b', marginLeft: '5px', marginBottom: '5px', display: 'block', textTransform: 'uppercase', letterSpacing: '0.5px' }}>COURSE / BRANCH</label>
                 <input 
@@ -132,7 +119,7 @@ const Login = () => {
                 <select 
                   value={year} 
                   onChange={(e) => setYear(e.target.value)}
-                  style={{ width: '100%', boxSizing: 'border-box', appearance: 'none' }}
+                  style={{ width: '100%', boxSizing: 'border-box' }}
                 >
                   <option>1st Year</option>
                   <option>2nd Year</option>
@@ -143,12 +130,12 @@ const Login = () => {
               </div>
             </div>
           ) : (
-            <div style={{ textAlign: 'left', animation: 'fadeIn 0.3s' }}>
+            <div style={{ textAlign: 'left' }}>
               <label style={{ fontSize: '12px', fontWeight: '700', color: '#64748b', marginLeft: '5px', marginBottom: '5px', display: 'block', textTransform: 'uppercase', letterSpacing: '0.5px' }}>STANDARD / CLASS</label>
               <select 
                 value={standard} 
                 onChange={(e) => setStandard(e.target.value)}
-                style={{ width: '100%', boxSizing: 'border-box', appearance: 'none' }}
+                style={{ width: '100%', boxSizing: 'border-box' }}
               >
                 <option>8th Grade</option>
                 <option>9th Grade</option>
@@ -166,7 +153,6 @@ const Login = () => {
         </form>
       </div>
       
-      {/* Updated Footer */}
       <p style={{ marginTop: '25px', color: '#94a3b8', fontSize: '13px', fontWeight: '500', letterSpacing: '0.5px' }}>
         Designed by Shreeyesh
       </p>
