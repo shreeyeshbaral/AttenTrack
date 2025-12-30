@@ -1,70 +1,31 @@
-# Getting Started with Create React App
+# 📊 AttenTrack — Premium Student Analytics
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Vercel Deployment](https://img.shields.io/badge/vibe-premium-6366f1)
+![License](https://img.shields.io/badge/license-MIT-blue)
+![React](https://img.shields.io/badge/React-20232a?style=for-the-badge&logo=react&logoColor=61dafb)
 
-## Available Scripts
+**AttenTrack** is a sleek, minimalist attendance management web app built for students who value privacy and deep insights. It takes the guesswork out of your semester by calculating exactly how many classes you can skip or must attend to hit your academic goals.
 
-In the project directory, you can run:
+## ✨ Key Features
 
-### `npm start`
+* **Predictive Analytics:** Automatically calculates your "Safe Zone" (bunkable classes) or "Action Required" (classes needed to reach your target percentage).
+* **Privacy-First (Decentralized):** No login or database required. All data is stored 100% locally on your device via **Web LocalStorage**, ensuring total privacy and offline functionality.
+* **Dynamic Timetable:** A custom-built weekly schedule manager that allows you to assign multiple subjects to specific days with a streamlined "Multi-Add" interface.
+* **Interactive Calendar:** A visual heatmap of your history, allowing you to mark attendance date-wise for every subject.
+* **Manual Overrides:** Quick-edit counters to manually update "Attended" and "Total" classes, allowing you to sync with your college portal instantly.
+* **Premium UI/UX:** Features a Glassmorphism design, smooth micro-interactions, and a fully optimized Night Mode for mobile browsers.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🛠️ Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* **Frontend Framework:** React.js
+* **State Management:** React Context API
+* **Icons:** React Icons (Material Design)
+* **Design System:** Custom Glassmorphism CSS with Poppins Typography
+* **Storage Logic:** Decentralized Client-Side Storage (Browser LocalStorage)
+* **Hosting:** Vercel
 
-### `npm test`
+## 🚀 Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/shreeyeshbaral/attendance-app.git](https://github.com/shreeyeshbaral/AttenTrack.git)
