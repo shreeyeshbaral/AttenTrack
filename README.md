@@ -29,3 +29,21 @@
 1. **Clone the repository:**
    ```bash
    git clone [https://github.com/shreeyeshbaral/attendance-app.git](https://github.com/shreeyeshbaral/AttenTrack.git)
+
+2. **Install dependencies:**   
+   npm install
+
+3. **Launch the app:**
+   npm start
+
+
+## 🔒 The Local Storage Advantage
+
+Unlike "Enterprise" apps that store your data on a central server, **AttenTrack** gives every user their own dedicated private storage bucket on their own device.
+
+* **No Server Crashes:** Since calculations happen on your phone, the app is always fast and responsive.
+* **Zero Data Tracking:** Your records never leave your browser; no one can see your attendance but you.
+* **Free Forever:** No hosting costs for databases mean no ads, trackers, or subscription fees.
+
+---
+Developed by [Shreeyesh Baral](https://github.com/shreeyeshbaral)
